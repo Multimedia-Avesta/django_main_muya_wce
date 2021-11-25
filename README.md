@@ -102,3 +102,4 @@ projects:
 - CATENA (funded by the European Union Horizon 2020 Research and Innovation Programme under grant agreement 770816,
   2018-2023)
 
+[![DOI](https://zenodo.org/badge/431938558.svg)](https://zenodo.org/badge/latestdoi/431938558)
