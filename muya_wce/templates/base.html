@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+      <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+      <script>
+      	var staticUrl = "{% static '' %}";
+      </script>
+      <link rel=stylesheet href="{% static 'common/css/layout.css' %}" type="text/css"/>
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+
+      {% block header %}
+        <header id="header" role="banner">
+          <h1 id="page_title">{{ page_title }}</h1>
+          <h1 id="project_name">{{ project_name }}</h1>
+          {% block login_status %}
+            <div id="login_status">
+              {% if login_status %}
+                logged in as <a href="/accounts/profile">{{ login_status }}</a><br/><a href="/accounts/logout?next={{ post_logout_url }}">logout</a>
+              {% else %}
+                <a href="/accounts/login?next={{ post_login_url }}">login</a>
+              {% endif %}
+            </div>
+          {% endblock %}
+        </header>
+        {% block breadcrumbs %}
+        {% endblock %}
+      {% endblock %}
+
+      {% block container %}
+      {% endblock %}
+
+      {% block footer %}
+        <div id="footer"></div>
+      {% endblock %}
+
+    {% endblock %}
+  </body>
+</html>

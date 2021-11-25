@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% comment %}
+  MUYA WCE home page
+{% endcomment %}
+
+{% block head %}
+  {{ block.super }}
+  <title>The MUYA Workspace for Collaborative Editing</title>
+{% endblock %}
+
+{% block container %}
+  <main id="container" role="main">
+    <p>These are the online editorial tools created as part of the MUYA project.</p>
+    <p>For more information about the project please visit the <a href="https://multimediayasna.wixsite.com/muya">project website</a></p>
+    {% if login_status %}
+      <p>To upload transcriptions visit the <a href="transcriptions">transcription page</a></p>
+      <p>To access the collation interface visit the <a href="collation">collation page</a></p>
+    {% endif %}
+  </main>
+{% endblock %}
