@@ -13,3 +13,4 @@ urls.py
 celery.py
 production_settings.py
 wsgi.py
+static_url.js
