@@ -84,6 +84,14 @@ WantedBy=multi-user.target
 
 ```
 
+If you are using the collation app then a JavaScript file should be added to the ```common-static/js``` directory in
+the main Django project with the file name ```static_url.js```. This file should set the staticUrl variable to the full
+url to the static directory for example:
+
+```js
+const staticUrl = 'https://example.com/static/';
+```
+
 ## License
 
 This app is licensed under the GNU General Public License v3.0.
