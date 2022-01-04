@@ -899,7 +899,9 @@ data which may be useful to the technical team.
 
 Figure 1 shows the administration index page for staff users. The one for superusers is similar but has a few
 additional sections. In the section titled *ACCOUNTS* you can add, edit and delete users. In the section titled
-*COLLATION* you can add and edit collation projects.
+*COLLATION* you can add and edit collation projects. If the index page does not list both the *ACCOUNTS* section and
+the *COLLATION* section you should contact a member of the technical team who may need to alter your permissions to
+allow access to the User and Project objects.
 
 When you are navigating around the admin interface a breadcrumb trail will appear directly below the header section
 that reads *MUYA Editing Tool Administration*. Clicking on *Home* in the breadcrumb trail will always bring you back to
@@ -955,16 +957,32 @@ first box in this first section titled *Active* is checked unless you are delibe
 .. _`group assignment`:
 
 The next part of the section, labelled *Groups*, allows you to select the group(s) to which this user belongs. All
-users who need access to the editing tools should be in the group called *editors*. If this group is in the box on the
-right hand side headed *Chosen groups* then the user is a member of that group. If the *editors* group is in the box on
-the left headed *Available groups*, then this user has not been assigned membership of the group. To assign the user to
-the group select the *editors* group in the left box by clicking on it. The right pointing arrow in between the boxes
-should then be activated. Click on this arrow to move the *editors* group from the available groups box into the chosen
-groups box.
+users who need access to the editing tools should be in the group called *editors*. Figure 2 shows this section of the
+form before the user has been made a member of the editors group.
+
+.. figure:: user_guide_imgs/group_permissions_before.png
+   :alt: a screenshot of the group permissions section before a user has been made a member of the editors group
+
+   Figure 2: The group permissions section of the form before a user has been added to the editors group.
+
+
+If this group is in the box on the right hand side headed *Chosen groups* then the user is a member of that group. If
+the *editors* group is in the box on the left headed *Available groups*, then this user has not been assigned
+membership of the group. To assign the user to the group select the *editors* group in the left box by clicking on it.
+The right pointing arrow in between the boxes should then be activated. Click on this arrow to move the *editors* group
+from the available groups box into the chosen groups box. Figure 3 shows this section of the form when the user has
+been added to the editors group.
+
+.. figure:: user_guide_imgs/group_permissions_after.png
+   :alt: a screenshot of the group permissions section after a user has been made a member of the editors group
+
+   Figure 3: The group permissions section of the form after a user has been added to the editors group.
 
 The final part of the Permissions section, labelled *User permissions*, should not be needed unless the tools are
-extended. This section allows more fine-grained permissions to be assigned to users, but all of the required permissions
-for these tools are handled with the group permissions described above.
+extended. This section allows more fine-grained permissions to be assigned to users, but all of the required
+permissions for these tools are handled with the group permissions described above. There may be an exception for staff
+users who should be given access to the user and project objects if these are not available when the staff user first
+logs into the admin interface.
 
 When you have made all the changes you want to make, it is important to save them using the save button at the bottom of
 the screen.
@@ -979,18 +997,19 @@ The user adding interface can be accessed in two ways:
 
 - from the list of current users by clicking on the *ADD USER* button at the top right of the page.
 
-Either of these links will take you to the form illustrated in Figure 2.
+Either of these links will take you to the form illustrated in Figure 4.
 
 
 .. figure:: user_guide_imgs/add_user_form.png
    :alt: a screenshot of the form used to add users
 
-   Figure 2: The add user form.
+   Figure 4: The add user form.
 
 
 Enter the email address of the new user into the box and click the *Save* button. This will take you to the details
 page for the user. Assuming this user requires access to the editing tools, you should now follow the instructions for
 `group assignment`_ to assign the new user to the editors group. Once you have done this, save the user again.
+
 
 As soon as the email address of the new user is saved, the user will be sent an email inviting them to create an account
 on the system. The email includes a special registration link which is time-limited (it lasts around two days). If the
@@ -1122,7 +1141,7 @@ only be done if something has gone wrong in the interfaces and needs to be fixed
     unless you have enough knowledge to be able to adjust the JSON for the ceremony mappings to remove all references
     to the deleted ceremony.
 
-When you have added all of the data, save the project with the same button at the bottom of the page.
+When you have added all of the data, save the project with the save button at the bottom of the page.
 
 Viewing project data
 ^^^^^^^^^^^^^^^^^^^^
