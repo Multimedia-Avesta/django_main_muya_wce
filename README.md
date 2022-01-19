@@ -75,7 +75,7 @@ Description=The collateX server
 Type=simple
 
 User=USER
-ExecStart=/usr/bin/java -jar /srv/itsee/collateX/collatex-tools-1.8-SNAPSHOT.jar -http
+ExecStart=/usr/bin/java -jar /path/to/django/app/collation/collateX/collatex-tools-1.8-SNAPSHOT.jar -http
 
 Restart=on-failure
 
