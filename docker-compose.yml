@@ -1,0 +1,43 @@
+# Local development only. Not for use in Production.
+version: "3.9"
+
+services:
+
+  muya-collation:
+    build:
+      context: .
+      dockerfile: docker/collation-dev/Dockerfile
+    ports:
+      - ${COLLATION_HOST_PORT:-34866}:7369
+
+
+  muya-queue:
+    image: "rabbitmq:3.9-management-alpine"
+    restart: always
+    ports:
+      - ${MUYA_QUEUE_HOST_PORT:-34873}:5672
+      - ${MUYA_QUEUE_MANAGE_HOST_PORT:-34874}:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_QUEUE_USER:-rabbitmq}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_QUEUE_PASSWORD:-muya}
+    volumes:
+      - muya-queue:/var/lib/rabbitmq
+
+  muya-db:
+    build:
+      context: .
+      dockerfile: docker/db-dev/Dockerfile
+    restart: always
+    ports:
+      - ${MUYA_DB_HOST_PORT:-34833}:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD:-postgres}
+      MUYA_PASSWORD: ${MUYA_DB_PASSWORD:-muya}
+    volumes:
+      - muya-db:/var/lib/postgresql/data
+
+
+volumes:
+  muya-queue:
+  muya-db:
+

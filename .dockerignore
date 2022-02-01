@@ -1,0 +1,14 @@
+.git
+.gitignore
+.idea
+.env
+.env-dev-example
+.venv
+docker-compose.yml
+Dockerfile
+.cache
+*.md
+!README*.md
+**/local_settings.py
+**/example_local_settings.py
+downloads/
