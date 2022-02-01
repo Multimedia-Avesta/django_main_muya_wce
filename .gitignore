@@ -8,9 +8,9 @@ apparatus/*
 exports/*
 sent_emails/*
 docs/*.pdf
-settings.py
-urls.py
-celery.py
+#settings.py
+#urls.py
+#celery.py
 production_settings.py
-wsgi.py
-static_url.js
+#wsgi.py
+#static_url.js
