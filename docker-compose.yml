@@ -3,13 +3,30 @@ version: "3.9"
 
 services:
 
+  muya-django:
+    build:
+      context: .
+      dockerfile: docker/django-dev/Dockerfile
+    ports:
+      - ${MUYA_HOST_PORT:-34830}:8000
+    env_file:
+      - config/muya-django.env
+      - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
+    environment:
+      - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
+    volumes:
+      - .:/opt/muya
+    depends_on:
+      - muya-collation
+      - muya-queue
+      - muya-db
+
   muya-collation:
     build:
       context: .
       dockerfile: docker/collation-dev/Dockerfile
     ports:
       - ${COLLATION_HOST_PORT:-34866}:7369
-
 
   muya-queue:
     image: "rabbitmq:3.9-management-alpine"
@@ -18,7 +35,7 @@ services:
       - ${MUYA_QUEUE_HOST_PORT:-34873}:5672
       - ${MUYA_QUEUE_MANAGE_HOST_PORT:-34874}:15672
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_QUEUE_USER:-rabbitmq}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_QUEUE_USER:-muya}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_QUEUE_PASSWORD:-muya}
     volumes:
       - muya-queue:/var/lib/rabbitmq
@@ -35,7 +52,6 @@ services:
       MUYA_PASSWORD: ${MUYA_DB_PASSWORD:-muya}
     volumes:
       - muya-db:/var/lib/postgresql/data
-
 
 volumes:
   muya-queue:
