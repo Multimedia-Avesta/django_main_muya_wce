@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_results',
+    'muya_wce.setup.apps.SetupConfig',
     'accounts.apps.AccountsConfig',
     'transcriptions.apps.TranscriptionsConfig',
     'collation.apps.CollationConfig',

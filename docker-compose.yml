@@ -7,6 +7,9 @@ services:
     build:
       context: .
       dockerfile: docker/django-dev/Dockerfile
+      args:
+        - CONTEXT_GIT_COMMITISH=${CONTEXT_GIT_COMMITISH:-HEAD}
+    image: muya-django:latest
     ports:
       - ${MUYA_HOST_PORT:-34830}:8000
     env_file:
@@ -15,7 +18,7 @@ services:
     environment:
       - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
     volumes:
-      - .:/opt/muya
+      - .:/opt/muya_wce
     depends_on:
       - muya-collation
       - muya-queue
@@ -25,6 +28,7 @@ services:
     build:
       context: .
       dockerfile: docker/collation-dev/Dockerfile
+    image: muya-collation:latest
     ports:
       - ${COLLATION_HOST_PORT:-34866}:7369
 
@@ -44,6 +48,7 @@ services:
     build:
       context: .
       dockerfile: docker/db-dev/Dockerfile
+    image: muya-db:latest
     restart: always
     ports:
       - ${MUYA_DB_HOST_PORT:-34833}:5432
