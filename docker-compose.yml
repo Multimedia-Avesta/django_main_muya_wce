@@ -17,12 +17,14 @@ services:
       - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
     environment:
       - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
+      - COLLATEX_URL=${COLLATEX_URL:-http://muya-collation:7369/}
     volumes:
       - .:/opt/muya_wce
     depends_on:
       - muya-collation
-      - muya-queue
+      - muya-broker
       - muya-db
+      - muya-celery
 
   muya-collation:
     build:
@@ -32,15 +34,34 @@ services:
     ports:
       - ${COLLATION_HOST_PORT:-34866}:7369
 
-  muya-queue:
+  muya-celery:
+    build:
+      context: .
+      dockerfile: docker/django-dev/Dockerfile
+      args:
+        - CONTEXT_GIT_COMMITISH=${CONTEXT_GIT_COMMITISH:-HEAD}
+    image: muya-celery:latest
+    command: run-celery
+    env_file:
+      - config/muya-django.env
+      - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
+    environment:
+      - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
+    volumes:
+      - .:/opt/muya_wce
+    depends_on:
+      - muya-broker
+      - muya-db
+
+  muya-broker:
     image: "rabbitmq:3.9-management-alpine"
     restart: always
     ports:
-      - ${MUYA_QUEUE_HOST_PORT:-34873}:5672
-      - ${MUYA_QUEUE_MANAGE_HOST_PORT:-34874}:15672
+      - ${MUYA_BROKER_HOST_PORT:-34873}:5672
+      - ${MUYA_BROKER_MANAGE_HOST_PORT:-34874}:15672
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_QUEUE_USER:-muya}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_QUEUE_PASSWORD:-muya}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-muya}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASSWORD:-muya}
     volumes:
       - muya-queue:/var/lib/rabbitmq
 

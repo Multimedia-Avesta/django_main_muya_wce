@@ -1,3 +1,4 @@
+.idea
 __pycache__/*
 *.pyc
 muya_wce/__pycache__/*

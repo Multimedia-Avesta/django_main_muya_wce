@@ -60,7 +60,6 @@ COPY --from=git-context /tmp/context/manage.py ./
 RUN chmod +x ./manage.py
 COPY --from=git-context /tmp/context/accounts ./accounts
 COPY --from=git-context /tmp/context/api ./api
-COPY --from=git-context /tmp/context/api_tests ./api_tests
 COPY --from=git-context /tmp/context/collation ./collation
 COPY --from=git-context /tmp/context/common-static ./common-static
 COPY --from=git-context /tmp/context/muya_wce ./muya_wce
@@ -72,6 +71,10 @@ COPY --from=git-context /tmp/context/docker/django-dev/muya-startup.d \
 RUN find /opt/muya-startup -type f -exec chmod +x {} \+ \
     && ln -s /opt/muya-startup/run-muya.sh /bin/muya
 
+COPY --from=git-context /tmp/context/docker/celery-dev/run-celery.sh /opt/celery-startup/
+RUN find /opt/celery-startup -type f -exec chmod +x {} \+ \
+    && ln -s /opt/celery-startup/run-celery.sh /bin/run-celery
+
 ENV VIRTUAL_ENV="/opt/venv/muya_wce"
 ENV PATH="$VIRTUAL_ENV/bin:$PATH" \
     PORT=8000
@@ -80,4 +83,5 @@ CMD [ "muya" ]
 
 
 FROM base as development
+COPY --from=git-context /tmp/context/api_tests ./api_tests
 COPY --from=development-venv /opt/venv/muya_wce /opt/venv/muya_wce
