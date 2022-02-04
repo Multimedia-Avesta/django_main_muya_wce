@@ -17,7 +17,6 @@ services:
       - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
     environment:
       - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
-      - COLLATEX_URL=${COLLATEX_URL:-http://muya-collation:7369/}
     volumes:
       - .:/opt/muya_wce
     depends_on:
