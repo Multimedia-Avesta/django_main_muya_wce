@@ -28,8 +28,10 @@ env = environ.Env(
     LOG_LEVEL_DJANGO=(str, 'INFO'),
     LOG_LEVEL=(resolve_callable, lambda: ('DEBUG' if DEBUG else 'INFO')),
     PUBLIC_URL=str,
+    STATIC_URL=(str, '/static/'),
     LOGIN_URL=(str, '/accounts/login/'),
     SECRET_KEY=str,
+    COLLATEX_URL=str,
     CELERY_BROKER_URL=str,
     CELERY_RESULT_BACKEND=str,
     EMAIL_BACKEND=(str, 'django.core.mail.backends.filebased.EmailBackend'),
@@ -40,6 +42,9 @@ env = environ.Env(
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
+
+# CollateX API setup
+COLLATEX_URL = env('COLLATEX_URL')
 
 # Celery setup
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
@@ -176,7 +181,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = env('STATIC_URL')
 STATIC_ROOT = str(BASE_DIR / 'static')
 STATICFILES_DIRS = [
                     ('common', BASE_DIR / 'common-static'),

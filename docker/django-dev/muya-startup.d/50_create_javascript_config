@@ -1,0 +1,8 @@
+#!/bin/bash
+# Create a JavaScript file to point to where static assets are served as specified in an environmental variable
+JS=/opt/muya_wce/common-static/js/static_url.js
+if [[ -z "${STATIC_URL}" ]]; then
+    STATIC_URL=/static/
+fi
+
+echo "const staticUrl = '${STATIC_URL:-/static/}';" > "$JS"
