@@ -1,0 +1,6 @@
+#!/bin/bash
+# Load test data from fixtures
+if [ "${MUYA_STARTUP_TESTDATA:-false}" == "true" ]
+then
+    ./manage.py loaddata muya_wce/fixtures/test*
+fi
