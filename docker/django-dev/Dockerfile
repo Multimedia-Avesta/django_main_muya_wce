@@ -65,6 +65,7 @@ COPY --from=git-context /tmp/context/common-static ./common-static
 COPY --from=git-context /tmp/context/muya_wce ./muya_wce
 COPY --from=git-context /tmp/context/transcriptions ./transcriptions
 
+COPY --from=git-context /tmp/context/docker/django-prod/muya_uwsgi.ini /opt/muya-startup/
 COPY --from=git-context /tmp/context/docker/django-dev/run-muya.sh /opt/muya-startup/
 COPY --from=git-context /tmp/context/docker/django-dev/muya-startup.d \
                         /opt/muya-startup/muya-startup.d
