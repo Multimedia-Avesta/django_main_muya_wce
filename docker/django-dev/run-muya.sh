@@ -8,5 +8,5 @@ fi
 if [[ "${MUYA_DEVSERVER:-false}" == "true" ]]; then
     exec python manage.py runserver 0.0.0.0:$PORT
 else
-    exec gunicorn --config file:/opt/clips/clump/gunicorn.py clump.wsgi
+    exec uwsgi --ini /opt/muya-startup/muya_uwsgi.ini
 fi
