@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "${MUYA_DEVSERVER:-false}" == "true" ]]; then
-    exec celery -A muya_wce worker -l INFO
+    exec celery --app muya_wce worker --loglevel INFO
 else
-    exec celery -A muya_wce worker -l INFO
+    exec celery --app muya_wce worker --loglevel INFO --pool gevent --concurrency 500
 fi
