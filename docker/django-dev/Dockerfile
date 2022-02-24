@@ -1,4 +1,3 @@
-ARG CONTEXT_GIT_COMMITISH
 ARG PYTHON_VERSION=3.8.12
 ARG POETRY_VERSION=1.1.12
 
@@ -25,12 +24,7 @@ RUN apt-get update && apt-get install -y \
 
 
 FROM base-builder AS git-context
-ARG CONTEXT_GIT_COMMITISH
-# Rather than using the current checkout state of the project as the build
-# context, we check out a specific commit from the repo. This guarantees that
-# local changes don't accidentally modify the committed state being built.
-COPY . /tmp/repo.git
-RUN git -C /tmp/repo.git worktree add --detach /tmp/context "$CONTEXT_GIT_COMMITISH"
+COPY . /tmp/context
 
 
 FROM base-builder AS development-venv
@@ -49,8 +43,6 @@ RUN poetry run env \
 
 
 FROM base-python as base
-ARG CONTEXT_GIT_COMMITISH
-LABEL org.opencontainers.image.revision="${CONTEXT_GIT_COMMITISH}"
 ENV DJANGO_SETTINGS_MODULE=muya_wce.settings \
     PATH=/opt/venv/muya_wce/bin:$PATH
 WORKDIR /opt/muya_wce

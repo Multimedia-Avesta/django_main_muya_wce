@@ -7,8 +7,6 @@ services:
     build:
       context: .
       dockerfile: docker/django-dev/Dockerfile
-      args:
-        - CONTEXT_GIT_COMMITISH=${CONTEXT_GIT_COMMITISH:-HEAD}
     image: muya-django:latest
     ports:
       - ${MUYA_HOST_PORT:-34830}:8000
@@ -38,8 +36,6 @@ services:
     build:
       context: .
       dockerfile: docker/django-dev/Dockerfile
-      args:
-        - CONTEXT_GIT_COMMITISH=${CONTEXT_GIT_COMMITISH:-HEAD}
     image: muya-celery:latest
     command: run-celery
     env_file:
