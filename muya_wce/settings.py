@@ -36,6 +36,13 @@ env = environ.Env(
     CELERY_RESULT_BACKEND=str,
     EMAIL_BACKEND=(str, 'django.core.mail.backends.filebased.EmailBackend'),
     EMAIL_FILE_PATH=(str, str(BASE_DIR / 'sent_emails')),
+    EMAIL_HOST=(str, 'localhost'),
+    EMAIL_PORT=(str, 587),
+    EMAIL_USE_TLS=(bool, True),
+    DEFAULT_FROM_EMAIL=str,
+    CONTACT_EMAIL=str,
+    EMAIL_HOST_USER=(str, ''),
+    EMAIL_HOST_PASSWORD=(str, ''),
     USER_IDENTIFIER_FIELD=(str, 'full_name'),
 )
 
@@ -139,6 +146,15 @@ REST_FRAMEWORK = {'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOf
 
 
 EMAIL_BACKEND = env('EMAIL_BACKEND')
+# Production
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+CONTACT_EMAIL = env('CONTACT_EMAIL')
+
 # Local development only. Not for use in Production.
 # https://docs.djangoproject.com/en/3.2/topics/email/#file-backend
 EMAIL_FILE_PATH = env('EMAIL_FILE_PATH')
