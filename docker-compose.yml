@@ -6,7 +6,8 @@ services:
   muya-django:
     build:
       context: .
-      dockerfile: docker/django-dev/Dockerfile
+      dockerfile: docker/django/Dockerfile
+      target: development-django
     image: muya-django:latest
     ports:
       - ${MUYA_HOST_PORT:-34830}:8000
@@ -27,7 +28,7 @@ services:
   muya-collation:
     build:
       context: .
-      dockerfile: docker/collation-dev/Dockerfile
+      dockerfile: docker/collation/Dockerfile
     image: muya-collation:latest
     ports:
       - ${COLLATION_HOST_PORT:-34866}:7369
@@ -35,9 +36,9 @@ services:
   muya-celery:
     build:
       context: .
-      dockerfile: docker/django-dev/Dockerfile
+      dockerfile: docker/django/Dockerfile
+      target: development-celery
     image: muya-celery:latest
-    command: run-celery
     env_file:
       - config/muya-django.env
       - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
@@ -50,7 +51,10 @@ services:
       - muya-db
 
   muya-broker:
-    image: "rabbitmq:3.9-management-alpine"
+    build:
+      context: .
+      dockerfile: docker/rabbitmq-dev/Dockerfile
+    image: muya-broker:latest
     restart: always
     ports:
       - ${MUYA_BROKER_HOST_PORT:-34873}:5672

@@ -1,4 +1,7 @@
+.git
 .gitignore
+.github
+.do
 .idea
 .env
 .env-dev-example
@@ -10,4 +13,10 @@ Dockerfile
 !README*.md
 **/local_settings.py
 **/example_local_settings.py
+docs/
 downloads/
+sent_emails/
+exports/
+apparatus/
+static/
+**/__pycache__/
