@@ -118,6 +118,9 @@ CELERY_RESULT_BACKEND = 'django-db'
 # local file based email system
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+# used in templates
+DEFAULT_FROM_EMAIL = 'us@example.com'
+CONTACT_EMAIL = 'us@example.com'
 
 # export directories
 APPARATUS_BASE_DIR = BASE_DIR / 'apparatus'
