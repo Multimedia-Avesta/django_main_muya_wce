@@ -1,0 +1,3 @@
+#!/bin/bash
+# Create a django admin user from environment variables
+./manage.py auto_createsuperuser

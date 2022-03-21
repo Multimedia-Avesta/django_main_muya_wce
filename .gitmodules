@@ -1,15 +1,15 @@
 [submodule "accounts"]
 	path = accounts
-	url = git@github.com:Multimedia-Avesta/django_wce_accounts.git
+	url = https://github.com/Multimedia-Avesta/django_wce_accounts.git
 [submodule "api"]
 	path = api
-	url = git@github.com:Multimedia-Avesta/django_wce_api.git
+	url = https://github.com/Multimedia-Avesta/django_wce_api.git
 [submodule "api_tests"]
 	path = api_tests
-	url = git@github.com:Multimedia-Avesta/django_wce_api_tests.git
+	url = https://github.com/Multimedia-Avesta/django_wce_api_tests.git
 [submodule "transcriptions"]
 	path = transcriptions
-	url = git@github.com:Multimedia-Avesta/django_wce_transcriptions.git
+	url = https://github.com/Multimedia-Avesta/django_wce_transcriptions.git
 [submodule "collation"]
 	path = collation
-	url = git@github.com:Multimedia-Avesta/django_wce_collation.git
+	url = https://github.com/Multimedia-Avesta/django_wce_collation.git

@@ -1,0 +1,85 @@
+# Local development only. Not for use in Production.
+version: "3.9"
+
+services:
+
+  muya-django:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+      target: development-django
+    image: muya-django:latest
+    ports:
+      - ${MUYA_HOST_PORT:-34830}:8000
+    env_file:
+      - config/muya-django.env
+      - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
+    environment:
+      - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
+      - MUYA_STARTUP_TESTDATA=${MUYA_STARTUP_TESTDATA:-true}
+    volumes:
+      - .:/opt/muya_wce
+    depends_on:
+      - muya-collation
+      - muya-broker
+      - muya-db
+      - muya-celery
+
+  muya-collation:
+    build:
+      context: .
+      dockerfile: docker/collation/Dockerfile
+    image: muya-collation:latest
+    ports:
+      - ${COLLATION_HOST_PORT:-34866}:7369
+
+  muya-celery:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+      target: development-celery
+    image: muya-celery:latest
+    env_file:
+      - config/muya-django.env
+      - ${MUYA_ENV_OVERRIDE_FILE:-config/empty.env}
+    environment:
+      - MUYA_DEVSERVER=${MUYA_DEVSERVER:-true}
+    volumes:
+      - .:/opt/muya_wce
+    depends_on:
+      - muya-broker
+      - muya-db
+
+  muya-broker:
+    build:
+      context: .
+      dockerfile: docker/rabbitmq-dev/Dockerfile
+    image: muya-broker:latest
+    restart: always
+    ports:
+      - ${MUYA_BROKER_HOST_PORT:-34873}:5672
+      - ${MUYA_BROKER_MANAGE_HOST_PORT:-34874}:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-muya}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASSWORD:-muya}
+    volumes:
+      - muya-queue:/var/lib/rabbitmq
+
+  muya-db:
+    build:
+      context: .
+      dockerfile: docker/db-dev/Dockerfile
+    image: muya-db:latest
+    restart: always
+    ports:
+      - ${MUYA_DB_HOST_PORT:-34833}:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD:-postgres}
+      MUYA_PASSWORD: ${MUYA_DB_PASSWORD:-muya}
+    volumes:
+      - muya-db:/var/lib/postgresql/data
+
+volumes:
+  muya-queue:
+  muya-db:
+
