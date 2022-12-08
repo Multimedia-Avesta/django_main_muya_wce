@@ -58,6 +58,7 @@ COLLATEX_URL = env('COLLATEX_URL')
 # Celery setup
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+CELERY_RESULT_EXTENDED = True
 
 
 # Detect whether we're running under WSGI (i.e. as a webserver)
