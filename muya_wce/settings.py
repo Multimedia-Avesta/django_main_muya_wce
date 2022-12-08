@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import sys
 from pathlib import Path
 
+import logging
+
 import environ
 
 
@@ -56,6 +58,7 @@ COLLATEX_URL = env('COLLATEX_URL')
 # Celery setup
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND')
+CELERY_RESULT_EXTENDED = True
 
 
 # Detect whether we're running under WSGI (i.e. as a webserver)
@@ -208,3 +211,28 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+   'version': 1,
+   'disable_existing_loggers': False,
+   'formatters': {
+       'verbose': {
+           'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+       },
+   },
+   'handlers': {
+       'console': {
+           'level': env('LOG_LEVEL_DJANGO'),
+           'class': 'logging.StreamHandler',
+           'stream': sys.stdout,
+           'formatter': 'verbose'
+       },
+   },
+   'loggers': {
+       '': {
+           'handlers': ['console'],
+           'level': env('LOG_LEVEL_DJANGO'),
+           'propagate': True,
+       },
+   },
+}
